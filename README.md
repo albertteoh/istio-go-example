@@ -4,6 +4,8 @@ that are "auto" instrumented with Istio.
 
 For examples on manually instrumenting services with Jaeger, please see: [albertteoh/jaeger-go-example](https://github.com/albertteoh/jaeger-go-example).
 
+The main code change required to enable tracing instrumentation with Istio is to propagate trace headers within each service to enable correlating inbound with outbound calls.
+
 # Prerequisites
 
 ## Installing Istio & Jaeger
