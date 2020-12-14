@@ -13,7 +13,7 @@ import (
 const thisServiceName = "service-a"
 
 func main() {
-	_, closer := tracing.Init(thisServiceName)
+	_, closer := tracing.Init()
 	defer closer.Close()
 
 	outboundHostPort, ok := os.LookupEnv("OUTBOUND_HOST_PORT")
