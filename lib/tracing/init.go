@@ -12,6 +12,9 @@ import (
 func Init() (opentracing.Tracer, io.Closer) {
 	// Zipkin shares span ID between client and server spans; it must be enabled via the following option.
 	zipkinPropagator := zipkin.NewZipkinB3HTTPHeaderPropagator()
+
+	// serviceName, sampler and reporter are not used since we're not emitting traces with this tracer.
+	// This tracer is used for extracting and injecting trace header data, to propagate context.
 	tracer, closer := jaeger.NewTracer(
 		"",
 		jaeger.NewConstSampler(false),
