@@ -1,5 +1,16 @@
 all: start
 
+.PHONY: build
+build: service-a service-b
+
+.PHONY: start
+start: build
+	./scripts/start.sh
+
+.PHONY: stop
+stop:
+	./scripts/stop.sh
+
 .PHONY: service-a
 service-a:
 	@docker build -t service-a -f service-a/Dockerfile .
@@ -8,11 +19,3 @@ service-a:
 service-b:
 	@docker build -t service-b -f service-b/Dockerfile .
 
-.PHONY: start
-start: service-a service-b
-	@docker-compose up -d
-
-.PHONY: stop
-stop:
-	@docker-compose down
-	docker rmi service-a service-b

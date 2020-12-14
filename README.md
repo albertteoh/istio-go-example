@@ -1,30 +1,38 @@
-# Jaeger Go Instrumentation Example
-Two simple Go microservices where `service-a` calls `service-b`. Both services expose a `/ping` endpoint.
+# Istio Go Auto-Instrumentation Example
+Two simple Go microservices where `service-a` calls `service-b`. Both services expose a `/ping` endpoint,
+that are "auto" instrumented with Istio.
 
-This forms the basis for [albertteoh/jaeger-go-example](https://github.com/albertteoh/jaeger-go-example)
-which demonstrates how to manually instrument these services.
+For examples on manually instrumenting services with Jaeger, please see: [albertteoh/jaeger-go-example](https://github.com/albertteoh/jaeger-go-example).
+
+# Prerequisites
+
+## Installing Istio & Jaeger
+1. [Download](https://istio.io/latest/docs/setup/getting-started/#download) and
+   [install](https://istio.io/latest/docs/setup/getting-started/#install) Istio.
+
+2. [Install Jaeger Addon in Istio](https://istio.io/latest/docs/tasks/observability/distributed-tracing/jaeger/)
 
 # Getting Started
 
 ## Start the example
 
-Starts up the Jaeger all-in-one container, along with our example microservices.
+Builds and starts the services in Istio.
 ```
 $ make start
 ```
 
 ## Run the example
 
-Hit `service-a`'s endpoint to trigger the trace.
+Hit `service-a`'s endpoint (via the istio-ingressgateway) to trigger the trace.
 ```
-$ curl -w '\n' http://localhost:8081/ping
+$ curl -w '\n' http://localhost:80/ping
 ```
 
 ## Validate
 
 Should see `service-a -> service-b` on STDOUT.
 
-Go to http://localhost:16686/ and select `service-a` from the "Service" dropdown and click the "Find Traces" button.
+The script will open Jaeger in a browser tab where you can select `service-a.default` from the "Service" dropdown and click the "Find Traces" button.
 
 ## Stop the example
 
@@ -33,3 +41,8 @@ Stop and remove containers.
 ```
 $ make stop
 ```
+
+# Additional References
+- [Istio FAQ: How to support distributed tracing?](https://istio.io/latest/faq/distributed-tracing/#how-to-support-tracing)
+- [Discussion on need for “hints” to enable correlation between inbound and outbound](https://discuss.istio.io/t/istio-tracing-and-correlation/2630)
+- [Propagating Zipkin Trace Headers](https://github.com/jaegertracing/jaeger-client-go/blob/f7e0d4744fa6d5287c53b8ac8d4f83089ce07ce8/zipkin/README.md#L5)
