@@ -1,11 +1,9 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"log"
 	"net/http"
-	"net/http/httputil"
 	"os"
 
 	"ping/lib/ping"
@@ -27,20 +25,7 @@ func main() {
 	}
 
 	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("service-a received ping request: ")
-		// Save a copy of this request for debugging.
-		fmt.Println("Sending ping request: ")
-		requestDump, err := httputil.DumpRequest(r, true)
-		if err != nil {
-			fmt.Println(err)
-		}
-		fmt.Println(string(requestDump))
-
-		span := tracing.StartSpanFromRequest(tracer, r)
-		defer span.Finish()
-
-		ctx := opentracing.ContextWithSpan(context.Background(), span)
-		response, err := ping.Ping(ctx, outboundHostPort)
+		response, err := ping.Ping(r, outboundHostPort)
 		if err != nil {
 			log.Fatalf("Error occurred: %s", err)
 		}
