@@ -3,8 +3,6 @@ package ping
 import (
 	"fmt"
 	"net/http"
-	"net/http/httputil"
-
 	libhttp "ping/lib/http"
 	"ping/lib/tracing"
 )
@@ -19,21 +17,16 @@ func Ping(origReq *http.Request, hostPort string) (string, error) {
 		return "", err
 	}
 
+	// Create the request.
 	url := fmt.Sprintf("http://%s/ping", hostPort)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return "", err
 	}
 
+	// Inject trace headers into the request in order for Istio to correlate outbound with inbound calls.
 	if err := tracing.Inject(spanCtx, req, reqID); err != nil {
 		return "", err
 	}
-	// Save a copy of this request for debugging.
-	fmt.Println("Sending ping request: ")
-	requestDump, err := httputil.DumpRequest(req, true)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(string(requestDump))
 	return libhttp.Do(req)
 }

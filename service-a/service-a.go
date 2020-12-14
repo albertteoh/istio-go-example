@@ -8,16 +8,13 @@ import (
 
 	"ping/lib/ping"
 	"ping/lib/tracing"
-
-	"github.com/opentracing/opentracing-go"
 )
 
 const thisServiceName = "service-a"
 
 func main() {
-	tracer, closer := tracing.Init(thisServiceName)
+	_, closer := tracing.Init(thisServiceName)
 	defer closer.Close()
-	opentracing.SetGlobalTracer(tracer)
 
 	outboundHostPort, ok := os.LookupEnv("OUTBOUND_HOST_PORT")
 	if !ok {

@@ -21,5 +21,6 @@ func Init(service string) (opentracing.Tracer, io.Closer) {
 		jaeger.TracerOptions.ZipkinSharedRPCSpan(true),
 	)
 
+	opentracing.SetGlobalTracer(tracer)
 	return tracer, closer
 }
