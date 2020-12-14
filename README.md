@@ -1,18 +1,30 @@
 # Istio Go Auto-Instrumentation Example
-Two simple Go microservices where `service-a` calls `service-b`. Both services expose a `/ping` endpoint,
-that are "auto" instrumented with Istio.
+
+The purpose of this example is to explore low-to-no effort open-source instrumentation options available for distributed tracing and
+understand tradeoffs between solutions.
+
+This example consists of two simple Go microservices where `service-a` calls `service-b`. Both services expose a `/ping` endpoint,
+that are instrumented using Istio.
 
 For examples on manually instrumenting services with Jaeger, please see: [albertteoh/jaeger-go-example](https://github.com/albertteoh/jaeger-go-example).
 
-The main code change required to enable tracing instrumentation with Istio is to propagate trace headers within each service to enable correlating inbound with outbound calls.
+The key takeaways are:
+- There is still a need for code changes to [propagate context](https://istio.io/latest/faq/distributed-tracing/#how-to-support-tracing)
+to allow correlating inbound with outbound calls.
+- The code changes are fairly minimal and involve copying specific headers (Zipkin headers in the case of Istio) from inbound to outbound HTTP requests. "Leaf" services do not require any code changes, just services making outbound calls.
+- One can choose to leverage the [OpenTracing API](https://opentracing.io/) and use an implementing tracer like [Jaeger](http://jaegertracing.io/docs/latest), or implement their own logic to do so.
+
+Feedback and improvements (via PRs) are most welcome!
 
 # Prerequisites
 
 ## Installing Istio & Jaeger
-1. [Download](https://istio.io/latest/docs/setup/getting-started/#download) and
+1. [Install Kubernetes](https://kubernetes.io/docs/setup/)
+
+2. [Download](https://istio.io/latest/docs/setup/getting-started/#download) and
    [install](https://istio.io/latest/docs/setup/getting-started/#install) Istio.
 
-2. [Install Jaeger Addon in Istio](https://istio.io/latest/docs/tasks/observability/distributed-tracing/jaeger/)
+3. [Install Jaeger Addon in Istio](https://istio.io/latest/docs/tasks/observability/distributed-tracing/jaeger/)
 
 # Getting Started
 
