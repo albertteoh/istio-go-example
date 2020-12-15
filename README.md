@@ -1,7 +1,7 @@
 # Istio Go Auto-Instrumentation Example
 
 The purpose of this example is to explore low-to-no effort open-source instrumentation options available for distributed tracing and
-understand tradeoffs between solutions.
+understand tradeoffs between solutions. Istio is one such solution, providing the means to instrument services at their boundaries via sidecars that proxy calls in and out of the service.
 
 This example consists of two simple Go microservices where `service-a` calls `service-b`. Both services expose a `/ping` endpoint,
 that are instrumented using Istio.
