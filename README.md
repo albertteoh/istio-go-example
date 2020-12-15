@@ -22,7 +22,7 @@ Feedback and improvements (via PRs) are most welcome!
 1. [Install Kubernetes](https://kubernetes.io/docs/setup/)
 
 2. [Download](https://istio.io/latest/docs/setup/getting-started/#download) and
-   [install](https://istio.io/latest/docs/setup/getting-started/#install) Istio.
+   [install](https://istio.io/latest/docs/setup/getting-started/#install) Istio. I'm using Istio 1.8 in this example.
 
 3. [Install Jaeger Addon in Istio](https://istio.io/latest/docs/tasks/observability/distributed-tracing/jaeger/)
 
