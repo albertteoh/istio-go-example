@@ -18,7 +18,6 @@ Feedback and improvements (via PRs) are most welcome!
 
 # Prerequisites
 
-## Installing Istio & Jaeger
 1. [Install Kubernetes](https://kubernetes.io/docs/setup/)
 
 2. [Download](https://istio.io/latest/docs/setup/getting-started/#download) and
