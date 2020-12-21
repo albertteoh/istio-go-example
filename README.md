@@ -6,7 +6,7 @@ understand tradeoffs between solutions. Istio is one such solution, providing th
 This example consists of two simple Go microservices where `service-a` calls `service-b`. Both services expose a `/ping` endpoint,
 that are instrumented using Istio.
 
-For examples on manually instrumenting services with Jaeger, please see: [albertteoh/jaeger-go-example](https://github.com/albertteoh/jaeger-go-example).
+For an example of manual instrumentation with Jaeger, please see: [albertteoh/jaeger-go-example](https://github.com/albertteoh/jaeger-go-example).
 
 The key takeaways are:
 - There is still a need for code changes to [propagate context](https://istio.io/latest/faq/distributed-tracing/#how-to-support-tracing)
