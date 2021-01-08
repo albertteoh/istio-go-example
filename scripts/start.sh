@@ -3,6 +3,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 set -x
 
 istioctl install --set profile=demo -y
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.8/samples/addons/jaeger.yaml
 kubectl label namespace default istio-injection=enabled
 kubectl apply -f $DIR/jaeger-go-example.yaml
 sleep 10
